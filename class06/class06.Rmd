@@ -1,0 +1,115 @@
+---
+title: "class06"
+author: "Ziyuan_Han"
+date: "10/15/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## quick R Markdown intro
+We can write text of course just like any file, we can **style the text to be bold** or *italic*
+
+Do:
+-this
+-that
+-and another thing
+
+this is new text (two whitespaces to create a new line)  
+and this is a new line  
+---
+we can include some code:
+```{r}
+# this is a comment
+student1 <- c(100, 100, 100, 100, 100, 100, 100, 90)
+student2 <- c(100, NA, 90, 90, 90, 90, 97, 80)
+student3 <- c(90, NA, NA, NA, NA, NA, NA, NA)
+```
+short cut for adding code chunck
+option + command + I (for R code)
+
+**Q1.** Write a function grade() to determine an overall grade from a vector of student homework
+assignment scores dropping the lowest single score. If a student misses a homework (i.e. has an
+NA value) this can be used as a score to be potentially dropped. Your final function should be
+adquately explained with code comments and be able to work on an example class gradebook
+such as this one in CSV format: “https://tinyurl.com/gradeinput” [3pts]
+First, find the lowest score using **min()**, and the **which.min()** function to find where it is (ie. the position in the vector)
+```{r}
+which.min(student1)
+```
+
+```{r}
+student1[-which.min(student1)]
+```
+Now I can call the **mean()** function to get the average.
+```{r}
+mean(student1[-which.min(student1)])
+student2
+mean(student2)
+mean(student2,na.rm=TRUE)
+which(is.na(student2))
+!is.na(student2) #try to reverse the TRUE and FALSE
+student2[which(is.na(student2))] = 0
+student3[which(is.na(student3))] = 0
+mean(student3[-which.min(student3)]) 
+```
+```{r}
+student4 <-c(100,NA,90,"90",90,90,97,80)
+student4 <-as.numeric(student4)
+student4[is.na(student4)]=0
+mean(student4[-which.min(student4)])
+```
+#write a function 
+```{r}
+grade <-function(x){
+  x<-as.numeric(x)
+  x[is.na(x)]= 0
+  mean(x[-which.min(x)])
+}
+```
+```{r}
+grade(student1)
+gradebook<-"https://tinyurl.com/gradeinput"
+scores<-read.csv(gradebook,row.names = 1)
+scores
+avg_perstudent <- apply(scores,1,grade)
+```
+##Q2## who is the toppest student: student 18
+```{r}
+avg_perstudent[which.max(avg_perstudent)]
+```
+##From your analysis of the gradebook, which homework was toughest on students (i.e. obtained the lowest scores overall?## : Homework 2 
+```{r}
+mask <- scores
+mask[is.na(mask)] = 0
+avg_perhw <- apply(mask,2,mean)
+avg_perhw[which.min(avg_perhw)]
+```
+##Optional Extension: From your analysis of the gradebook, which homework was most predictive of overall score (i.e. highest correlation with average grade score)? ## Homework5
+```{r}
+ans <- apply(scores,1,grade)
+cor(mask$hw1,ans)
+cor(mask$hw2,ans)
+cor(mask$hw3,ans)
+cor(mask$hw4,ans)
+cor(mask$hw5,ans)
+```
+```{r}
+apply(mask,2,cor,ans)
+boxplot(scores)
+```
+```{r}
+student <- c(100,100,100,90)
+grade2 <- function(x, drop.lowest=TRUE) {
+ x <- as.numeric(x)
+ x[ is.na(x)] = 0
+ if(drop.lowest) {
+ mean(x[ -which.min(x) ])
+ } else {
+ mean(x)
+ }
+}
+grade2(student, drop.lowest = FALSE)
+```
