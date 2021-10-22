@@ -1,0 +1,589 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Machine Learning 1},
+  pdfauthor={Ziyuan\_Han},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Machine Learning 1}
+\author{Ziyuan\_Han}
+\date{10/22/2021}
+
+\begin{document}
+\maketitle
+
+\#Clustering methods Kmeans clustering in R is done with the
+\texttt{kmeans()}function. Here we makeup some data to test and learn
+with .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tmp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{3}\NormalTok{),}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{,}\OperatorTok{-}\DecValTok{3}\NormalTok{))}
+\NormalTok{data <-}\KeywordTok{cbind}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ tmp, }\DataTypeTok{y=}\KeywordTok{rev}\NormalTok{(tmp)) }\CommentTok{#rev function revers the order of the dataset }
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 x           y
+##  [1,]  2.07470734 -3.22675800
+##  [2,]  2.85151938 -1.32470919
+##  [3,]  2.28321137  0.08806029
+##  [4,]  0.64812579 -2.82946547
+##  [5,] -0.09785819 -2.13382666
+##  [6,]  3.79918630 -3.27968678
+##  [7,]  4.39967482 -1.28959136
+##  [8,]  3.51926562 -2.15572591
+##  [9,]  1.84998941 -3.29431856
+## [10,]  2.12478330 -2.34056546
+## [11,]  5.24546261 -5.61647241
+## [12,]  3.62756978 -4.12039839
+## [13,]  1.95502614 -3.64083289
+## [14,]  3.91427209 -3.42017514
+## [15,]  0.91442013 -2.66045173
+## [16,]  3.37382839 -2.47554745
+## [17,]  4.13195477 -1.94697401
+## [18,]  1.59422024 -2.99310153
+## [19,]  3.78195374 -2.32177405
+## [20,]  1.82152333 -1.52645585
+## [21,]  2.88500972 -3.45416598
+## [22,]  2.55871680 -2.65823657
+## [23,]  1.24211264 -3.11203306
+## [24,]  2.67971475 -4.26762737
+## [25,]  3.05752308 -2.65706566
+## [26,]  3.57716170 -1.83086551
+## [27,]  2.49878038 -4.08597237
+## [28,]  4.02527885 -2.85659939
+## [29,]  3.51742218 -1.52419599
+## [30,]  5.48173248 -3.20413010
+## [31,] -3.20413010  5.48173248
+## [32,] -1.52419599  3.51742218
+## [33,] -2.85659939  4.02527885
+## [34,] -4.08597237  2.49878038
+## [35,] -1.83086551  3.57716170
+## [36,] -2.65706566  3.05752308
+## [37,] -4.26762737  2.67971475
+## [38,] -3.11203306  1.24211264
+## [39,] -2.65823657  2.55871680
+## [40,] -3.45416598  2.88500972
+## [41,] -1.52645585  1.82152333
+## [42,] -2.32177405  3.78195374
+## [43,] -2.99310153  1.59422024
+## [44,] -1.94697401  4.13195477
+## [45,] -2.47554745  3.37382839
+## [46,] -2.66045173  0.91442013
+## [47,] -3.42017514  3.91427209
+## [48,] -3.64083289  1.95502614
+## [49,] -4.12039839  3.62756978
+## [50,] -5.61647241  5.24546261
+## [51,] -2.34056546  2.12478330
+## [52,] -3.29431856  1.84998941
+## [53,] -2.15572591  3.51926562
+## [54,] -1.28959136  4.39967482
+## [55,] -3.27968678  3.79918630
+## [56,] -2.13382666 -0.09785819
+## [57,] -2.82946547  0.64812579
+## [58,]  0.08806029  2.28321137
+## [59,] -1.32470919  2.85151938
+## [60,] -3.22675800  2.07470734
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-1-2.pdf} Run
+\texttt{kmeans()} set k to 2 nstart 20. The thing with Kmeans is you
+have to tell it how many clusters you want.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km<-}\StringTok{ }\KeywordTok{kmeans}\NormalTok{(data, }\DataTypeTok{centers =} \DecValTok{2}\NormalTok{, }\DataTypeTok{nstart =}\DecValTok{20}\NormalTok{) }\CommentTok{#the cluster means is the central }
+\NormalTok{km}\OperatorTok{$}\NormalTok{cluster }\CommentTok{#explore the km output parameters using "$"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1
+## [39] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km}\OperatorTok{$}\NormalTok{ifault}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{km}\OperatorTok{$}\NormalTok{size }\CommentTok{#Q: how many points are in each cluster}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30 30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Q what component of your result object details cluster assignment/membership?}
+\NormalTok{km}\OperatorTok{$}\NormalTok{cluster}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1
+## [39] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Q What 'component' of your result object details cluster center }
+\NormalTok{km}\OperatorTok{$}\NormalTok{centers}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           x         y
+## 1 -2.738655  2.844543
+## 2  2.844543 -2.738655
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Q plot x colored by the kmeans cluster assignment and add cluster centers as blue points? }
+\KeywordTok{plot}\NormalTok{(data, }\DataTypeTok{col =}\NormalTok{km}\OperatorTok{$}\NormalTok{cluster)}
+\KeywordTok{points}\NormalTok{(km}\OperatorTok{$}\NormalTok{centers,}\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{,}\DataTypeTok{pch=}\DecValTok{15}\NormalTok{,}\DataTypeTok{cex=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\#hclust: Hierarchical Clustering
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hc <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(}\KeywordTok{dist}\NormalTok{(data))}
+\NormalTok{hc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## hclust(d = dist(data))
+## 
+## Cluster method   : complete 
+## Distance         : euclidean 
+## Number of objects: 60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(hc)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-3-1.pdf} To
+find our membership vector we need to ``cut'' the tree and for this we
+use the \texttt{cutress()} fucntion adn tell it the height to cut at.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hc <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(}\KeywordTok{dist}\NormalTok{(data))}
+\NormalTok{hc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## hclust(d = dist(data))
+## 
+## Cluster method   : complete 
+## Distance         : euclidean 
+## Number of objects: 60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(hc)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{7}\NormalTok{,}\DataTypeTok{col=}\StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#we can also use cutree() data sate the number of k clusters we want }
+\NormalTok{grps<-}\KeywordTok{cutree}\NormalTok{(hc,}\DataTypeTok{k=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(data,}\DataTypeTok{col=}\NormalTok{grps)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#kmeans(x,centers=?)  hclust(dist(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\#PCA： principle component analysis
+
+\#\#PCA UK food data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url <-}\StringTok{ "https://tinyurl.com/UK-foods"}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(url,}\DataTypeTok{row.names =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{dim}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17  4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                England Wales Scotland N.Ireland
+## Cheese             105   103      103        66
+## Carcass_meat       245   227      242       267
+## Other_meat         685   803      750       586
+## Fish               147   160      122        93
+## Fats_and_oils      193   235      184       209
+## Sugars             156   175      147       139
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rownames}\NormalTok{(x) <-}\StringTok{ }\NormalTok{x[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{x <-}\StringTok{ }\NormalTok{x[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Wales Scotland N.Ireland
+## 105    103      103        66
+## 245    227      242       267
+## 685    803      750       586
+## 147    160      122        93
+## 193    235      184       209
+## 156    175      147       139
+## 720    874      566      1033
+## 253    265      171       143
+## 488    570      418       355
+## 198    203      220       187
+## 360    365      337       334
+## 1102  1137      957       674
+## 1472  1582     1462      1494
+## 57      73       53        47
+## 1374  1256     1572      1506
+## 375    475      458       135
+## 54      64       62        41
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{barplot}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(x), }\DataTypeTok{col=}\KeywordTok{rainbow}\NormalTok{(}\DecValTok{13}\NormalTok{),}\DataTypeTok{beside =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{##making a pairs plot}
+\NormalTok{mycol<-}\StringTok{ }\KeywordTok{rainbow}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(x))}
+\KeywordTok{pairs}\NormalTok{(x,}\DataTypeTok{col=}\NormalTok{mycol,}\DataTypeTok{pch=}\DecValTok{3}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-5-2.pdf}
+\#\#PCA to the rescue ! Here we will use the base R function for PCA,
+which is called \texttt{prcomp()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t}\NormalTok{(x) }\CommentTok{#transpose the data ; needs to put country in the row }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           105 245 685 147 193 156  720 253 488 198 360 1102 1472 57 1374 375 54
+## Wales     103 227 803 160 235 175  874 265 570 203 365 1137 1582 73 1256 475 64
+## Scotland  103 242 750 122 184 147  566 171 418 220 337  957 1462 53 1572 458 62
+## N.Ireland  66 267 586  93 209 139 1033 143 355 187 334  674 1494 47 1506 135 41
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# prcomp(x)}
+\NormalTok{pca <-}\KeywordTok{prcomp}\NormalTok{(}\KeywordTok{t}\NormalTok{(x))}
+\KeywordTok{summary}\NormalTok{(pca)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Importance of components:
+##                             PC1      PC2       PC3
+## Standard deviation     379.8991 260.5533 1.515e-13
+## Proportion of Variance   0.6801   0.3199 0.000e+00
+## Cumulative Proportion    0.6801   1.0000 1.000e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(pca)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attributes}\NormalTok{(pca)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $names
+## [1] "sdev"     "rotation" "center"   "scale"    "x"       
+## 
+## $class
+## [1] "prcomp"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(pca}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{])}
+\KeywordTok{text}\NormalTok{(pca}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\DataTypeTok{labels=}\KeywordTok{colnames}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#we can also examine the PCA "loadings", which tell us how much the original variables contribute to each new PC}
+\KeywordTok{barplot}\NormalTok{(pca}\OperatorTok{$}\NormalTok{rotation[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{las=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-6-3.pdf}
+\#\#one more PCA for today
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url2 <-}\StringTok{ "https://tinyurl.com/expression-CSV"}
+\NormalTok{rna.data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(url2, }\DataTypeTok{row.names=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(rna.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        wt1 wt2  wt3  wt4 wt5 ko1 ko2 ko3 ko4 ko5
+## gene1  439 458  408  429 420  90  88  86  90  93
+## gene2  219 200  204  210 187 427 423 434 433 426
+## gene3 1006 989 1030 1017 973 252 237 238 226 210
+## gene4  783 792  829  856 760 849 856 835 885 894
+## gene5  181 249  204  244 225 277 305 272 270 279
+## gene6  460 502  491  491 493 612 594 577 618 638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(rna.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100  10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(rna.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        wt1 wt2  wt3  wt4 wt5 ko1 ko2 ko3 ko4 ko5
+## gene1  439 458  408  429 420  90  88  86  90  93
+## gene2  219 200  204  210 187 427 423 434 433 426
+## gene3 1006 989 1030 1017 973 252 237 238 226 210
+## gene4  783 792  829  856 760 849 856 835 885 894
+## gene5  181 249  204  244 225 277 305 272 270 279
+## gene6  460 502  491  491 493 612 594 577 618 638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## Again we have to take the transpose of our data }
+\NormalTok{pca.rna <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(}\KeywordTok{t}\NormalTok{(rna.data), }\DataTypeTok{scale=}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{## Simple un polished plot of pc1 and pc2}
+\KeywordTok{plot}\NormalTok{(pca.rna}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\NormalTok{], pca.rna}\OperatorTok{$}\NormalTok{x[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{xlab=}\StringTok{"PC1"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"PC2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(pca.rna)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6     PC7
+## Standard deviation     9.6237 1.5198 1.05787 1.05203 0.88062 0.82545 0.80111
+## Proportion of Variance 0.9262 0.0231 0.01119 0.01107 0.00775 0.00681 0.00642
+## Cumulative Proportion  0.9262 0.9493 0.96045 0.97152 0.97928 0.98609 0.99251
+##                            PC8     PC9      PC10
+## Standard deviation     0.62065 0.60342 3.348e-15
+## Proportion of Variance 0.00385 0.00364 0.000e+00
+## Cumulative Proportion  0.99636 1.00000 1.000e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(pca.rna}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\DataTypeTok{main=}\StringTok{"Quick scree plot"}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(pca.rna}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{],}\DataTypeTok{labels =} \KeywordTok{colnames}\NormalTok{(rna.data))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{class08_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## Variance captured per PC }
+\NormalTok{pca.rnavar <-}\StringTok{ }\NormalTok{pca.rna}\OperatorTok{$}\NormalTok{sdev}\OperatorTok{^}\DecValTok{2}
+\CommentTok{## Percent variance is often more informative to look at }
+\NormalTok{pca.rnavar.per <-}\StringTok{ }\KeywordTok{round}\NormalTok{(pca.rnavar}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(pca.rnavar)}\OperatorTok{*}\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{pca.rnavar.per}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 92.6  2.3  1.1  1.1  0.8  0.7  0.6  0.4  0.4  0.0
+\end{verbatim}
+
+\end{document}
