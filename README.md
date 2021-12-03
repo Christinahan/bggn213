@@ -11,3 +11,5 @@ Nice to meet you all!
 - 05. Data Visualization with `ggplot2`  
 - 06. R Functions  
 - 07. Something Else  
+- 09. Haloween Candy Analy[source].()
+- ?? Covid-19 Vaccination
